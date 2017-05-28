@@ -46,8 +46,7 @@ org.eclipse.*
 *.exe
 
 # Custom
-reference/*
-dist/*
+reference/
 
 # Config
 discord-config.json
@@ -107,3 +106,14 @@ typings/
 # dotenv environment variables file
 .env
 
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
