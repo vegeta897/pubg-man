@@ -1,6 +1,5 @@
-import roster from './roster';
 import { combineReducers } from 'redux';
-const rootReducer = combineReducers({
-    roster
-});
+import * as global from './global';
+import * as roster from './roster';
+const rootReducer = combineReducers({...global, ...roster});
 export default rootReducer;
