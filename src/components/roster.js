@@ -1,4 +1,3 @@
-'use strict';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -17,7 +16,7 @@ class Roster extends Component {
         });
         return (
             <div className="Roster">
-                <LFG addPlayer={this.props.action.addToRoster}/>
+                <LFG addPlayer={this.props.actions.addToRoster}/>
                 <h2>Roster</h2>
                 <ol>
                     {rosterList}
@@ -33,7 +32,7 @@ function mapStateToProps(state, props) {
 }
 function mapDispatchToProps(dispatch) {
     return {
-        action: bindActionCreators(rosterActions, dispatch)
+        actions: bindActionCreators(rosterActions, dispatch)
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Roster);
