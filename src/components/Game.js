@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as globalActions from '../actions/global';
-import Roster from './roster';
+import Roster from './Roster';
 
 class Game extends Component {
     componentDidMount() { // https://stackoverflow.com/a/36299242/2612679

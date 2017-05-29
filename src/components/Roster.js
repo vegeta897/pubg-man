@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as rosterActions from '../actions/roster';
-import LFG from './lfg';
+import LFG from './LFG';
 class Roster extends Component {
     constructor(props) {
         super(props);
