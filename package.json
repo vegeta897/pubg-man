@@ -1,6 +1,7 @@
 {
   "name": "pubg-man",
   "version": "0.0.1",
+  "description": "A management game based on PLAYERUNKNOWN'S BATTLEGROUNDS",
   "dependencies": {
     "react": "^15.5.4",
     "react-dom": "^15.5.4",

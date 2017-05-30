@@ -15,7 +15,7 @@ class Roster extends Component {
             return <li key={idx}>{player}</li>;
         });
         return (
-            <div className="Roster">
+            <div className='Roster'>
                 <LFG addPlayer={this.props.actions.addToRoster}/>
                 <h2>Roster</h2>
                 <ol>

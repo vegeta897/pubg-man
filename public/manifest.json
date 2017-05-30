@@ -1,6 +1,7 @@
 {
   "short_name": "PUBG-Man",
   "name": "PUBG Manager",
+  "description": "A management game based on PLAYERUNKNOWN'S BATTLEGROUNDS",
   "icons": [
     {
       "src": "favicon.ico",

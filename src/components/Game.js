@@ -9,12 +9,12 @@ class Game extends Component {
         this.props.actions.startTick(setInterval(this.props.actions.tick, 1000));
     }
     componentWillUnmount() {
-        clearInterval(this.props.intervalID);
+        clearInterval(this.props.global.intervalID);
         this.props.actions.stopTick();
     }
     render() {
         return (
-            <div className="Game">
+            <div className='Game'>
                 <h3>Tick: {this.props.global.tick}</h3>
                 <Roster />
             </div>
