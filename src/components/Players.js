@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as rosterActions from '../actions/roster';
+import * as playerActions from '../actions/players';
 import LFG from './LFG';
-class Roster extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            
-        }
-    }
+class Players extends Component {
     render() {
-        const rosterList = this.props.roster.map((player, idx) => {
+        const rosterList = this.props.players.roster.map((player, idx) => {
             return <li key={idx}>{player}</li>;
         });
         return (
@@ -25,14 +19,14 @@ class Roster extends Component {
         );
     }
 }
-function mapStateToProps(state, props) {
+function mapStateToProps(state, props) { // 'props' is passed in by parent component
     return {
-        roster: state.roster
+        players: state.players
     }
 }
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(rosterActions, dispatch)
+        actions: bindActionCreators(playerActions, dispatch)
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Roster);
+export default connect(mapStateToProps, mapDispatchToProps)(Players);

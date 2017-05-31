@@ -12,3 +12,10 @@ Inspired by incremental/idle games, your progress is mostly cumulative and self-
 * Recruit more players for more teams
 * Establish online presence with streaming and social media
 * Become endorsed by sponsors
+
+## Credits
+Built with [Create React App](https://github.com/facebookincubator/create-react-app)
+
+#### References
+* [EternalSunshine](https://github.com/GGulati/EternalSunshine)
+* http://www.penta-code.com/how-to-add-redux-to-create-react-app/

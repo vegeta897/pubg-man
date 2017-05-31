@@ -20,6 +20,7 @@
 * Map knowledge
 * Driving ability
 * Inventory management
+* Leadership
 * Tactics
   * Movement
   * Concealment

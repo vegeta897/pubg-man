@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as globalActions from '../actions/global';
-import Roster from './Roster';
+import Players from './Players';
 
 class Game extends Component {
     componentDidMount() { // https://stackoverflow.com/a/36299242/2612679
@@ -16,7 +16,7 @@ class Game extends Component {
         return (
             <div className='Game'>
                 <h3>Tick: {this.props.global.tick}</h3>
-                <Roster />
+                <Players />
             </div>
         );
     }
