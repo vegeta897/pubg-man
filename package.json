@@ -3,9 +3,11 @@
   "version": "0.0.1",
   "description": "A management game based on PLAYERUNKNOWN'S BATTLEGROUNDS",
   "dependencies": {
+    "immutable": "^3.8.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
+    "reduce-reducers": "^0.1.2",
     "redux": "^3.6.0",
     "seedrandom": "^2.4.3"
   },

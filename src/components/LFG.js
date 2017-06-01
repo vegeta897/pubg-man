@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as Actions from '../actions';
+
 class LFG extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            lfgPlayers: [
-                'vegeta897',
-                'voiper',
-                'morgs'
-            ]
-        }
-    }
     render() {
-        const lfgPlayers = this.state.lfgPlayers.map((player, idx) => {
+        const lfgPlayers = this.props.players.map((player, idx) => {
             return <li key={idx}>
-                <button onClick={() => this.props.addPlayer(player)}>+</button>
-                {player}</li>
+                <button onClick={() => this.props.dispatch(Actions.addToRoster(player))}>+</button>
+                {player.username}</li>
         });
         return (
             <div>
@@ -26,4 +19,9 @@ class LFG extends Component {
         );
     }
 }
-export default LFG;
+function mapStateToProps(state, props) { // 'props' is passed in by parent component
+    return {
+        players:  state.getIn(['players','lfg'])
+    }
+}
+export default connect(mapStateToProps)(LFG);

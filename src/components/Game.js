@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as globalActions from '../actions/global';
+import * as Actions from '../actions';
 import Players from './Players';
 
 class Game extends Component {
@@ -23,12 +23,12 @@ class Game extends Component {
 }
 function mapStateToProps(state, props) {
     return {
-        global: state.global
+        global: state.get('global').toJS()
     }
 }
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(globalActions, dispatch)
+        actions: bindActionCreators(Actions, dispatch)
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
