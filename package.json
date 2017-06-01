@@ -4,11 +4,11 @@
   "description": "A management game based on PLAYERUNKNOWN'S BATTLEGROUNDS",
   "dependencies": {
     "immutable": "^3.8.1",
-    "material-ui": "^0.18.1",
+    "material-ui": "^1.0.0-alpha.16",
+    "material-ui-icons": "^1.0.0-alpha.3",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
-    "react-tap-event-plugin": "^2.0.1",
     "reduce-reducers": "^0.1.2",
     "redux": "^3.6.0",
     "seedrandom": "^2.4.3",

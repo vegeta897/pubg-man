@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import Players from './Players';
+import Grid from 'material-ui/Grid';
 
 class Game extends Component {
     componentDidMount() { // https://stackoverflow.com/a/36299242/2612679
@@ -14,10 +15,14 @@ class Game extends Component {
     }
     render() {
         return (
-            <div className='Game'>
-                <h3>Tick: {this.props.global.tick}</h3>
-                <Players />
-            </div>
+            <Grid container className='Game'>
+                <Grid item xs={12}>
+                    <h3>Tick: {this.props.global.tick}</h3>
+                </Grid>
+                <Grid item md={4} sm={12}>
+                    <Players />
+                </Grid>
+            </Grid>
         );
     }
 }
