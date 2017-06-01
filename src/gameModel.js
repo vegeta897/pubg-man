@@ -10,9 +10,11 @@ seedrandom(seed, { global: true });
 
 export const InitialState = immutable.fromJS({
     global: { seed },
+    lfg: immutable.Set(),
+    roster: immutable.Set(),
     players: {
-        lfg: [],
-        roster: []
+        byId: {},
+        allIds: immutable.Set()
     }
 });
 

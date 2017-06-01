@@ -10,17 +10,17 @@ class Players extends Component {
         return (
             <div className='Roster'>
                 <LFG />
-                <h2>Roster</h2>
-                <ol>
-                    {rosterList}
-                </ol>
+                <h2>Roster:</h2>
+                <ol>{rosterList}</ol>
             </div>
         );
     }
 }
 function mapStateToProps(state, props) { // 'props' is passed in by parent component
     return {
-        players: state.getIn(['players','roster'])
+        players: state.get('roster').map(player => {
+            return state.getIn(['players', 'byId', player]);
+        })
     }
 }
 export default connect(mapStateToProps)(Players);

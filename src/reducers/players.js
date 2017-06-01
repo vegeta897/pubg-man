@@ -5,13 +5,14 @@ export default (state, action) => {
     switch(action.type) {
         case Actions.TICK:
             if(state.getIn(['global','tick']) === 3) {
-                return state.updateIn(['players','lfg'], lfg => lfg.push(CreatePlayer()));
+                let newPlayer = CreatePlayer();
+                return state.setIn(['players', 'byId', newPlayer.username], newPlayer)
+                    .updateIn(['players','allIds'], allIds => allIds.add(newPlayer.username))
+                    .update('lfg', lfg => lfg.add(newPlayer.username));
             } else return state;
         case Actions.RECRUIT_PLAYER:
-            return state.update('players', players => {
-                return players.update('lfg', lfg => lfg.filter(player => player !== action.player))
-                    .update('roster', roster => roster.push(action.player));
-            });
+            return state.update('lfg', lfg => lfg.remove(action.username))
+                .update('roster', roster => roster.add(action.username));
         default:
             return state;
     }

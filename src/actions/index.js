@@ -8,4 +8,4 @@ export const Actions = {
 export const startTick = intervalID => ({ type: Actions.START_TICK, intervalID });
 export const tick = () => ({ type: Actions.TICK });
 export const stopTick = () => ({ type: Actions.STOP_TICK });
-export const addToRoster = player => ({ type: Actions.RECRUIT_PLAYER, player });
+export const addToRoster = username => ({ type: Actions.RECRUIT_PLAYER, username });

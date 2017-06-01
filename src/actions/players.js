@@ -1,6 +1,6 @@
-export const addToRoster = (player) => {
+export const addToRoster = (username) => {
     return {
         type: 'RECRUIT_PLAYER',
-        player
+        username
     }
 };

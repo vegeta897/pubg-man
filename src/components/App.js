@@ -7,12 +7,11 @@ class App extends Component {
       return (
           <div className='App'>
               <div className='App-header'>
-                  <h2>Welcome to React</h2>
+                  <h1>PUBG Manager</h1>
               </div>
               <Game />
           </div>
       );
   }
 }
-
 export default App;
