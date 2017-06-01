@@ -22,7 +22,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "cd build && git add --all && git commit -m \"Release at $(date)\" && git push"
+    "deploy": "rmdir /s /q dist\\static && xcopy /E /Y build\\* dist\\* && cd dist && git add --all && git commit -m \"Release at %date:~-4,4%-%date:~-7,2%-%date:~-10,2%@%time:~-11,2%:%time:~-8,2%\" && git push"
   },
   "repository": {
     "type": "git",

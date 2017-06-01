@@ -111,6 +111,7 @@ typings/
 
 # production
 /build
+/dist
 
 # misc
 .env.local
