@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
+import {Card, CardTitle} from 'material-ui/Card';
+import {List, ListItem} from 'material-ui/List';
+import AddCircle from 'material-ui/svg-icons/content/add-circle';
 
 class LFG extends Component {
     render() {
         const lfgPlayers = this.props.players.map((player, idx) => {
-            return <li key={idx}>
-                <button onClick={() => this.props.dispatch(Actions.addToRoster(player.username))}>+</button>
-                {player.username}</li>
+            return <ListItem key={idx}
+                             leftIcon={<AddCircle />}
+                             onClick={() => this.props.dispatch(Actions.addToRoster(player.username))}
+                             primaryText={player.username}
+            />
         });
         return (
-            <div>
-                <h2>Looking For Group:</h2>
-                <ul>{lfgPlayers}</ul>
-            </div>
+            <Card style={{marginBottom: '20px'}}>
+                <CardTitle title="Looking For Group" subtitle="Players you can recruit" />
+                <List>
+                    {lfgPlayers}
+                </List>
+            </Card>
         );
     }
 }

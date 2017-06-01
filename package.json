@@ -4,12 +4,15 @@
   "description": "A management game based on PLAYERUNKNOWN'S BATTLEGROUNDS",
   "dependencies": {
     "immutable": "^3.8.1",
+    "material-ui": "^0.18.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
+    "react-tap-event-plugin": "^2.0.1",
     "reduce-reducers": "^0.1.2",
     "redux": "^3.6.0",
-    "seedrandom": "^2.4.3"
+    "seedrandom": "^2.4.3",
+    "typeface-roboto": "0.0.22"
   },
   "devDependencies": {
     "react-scripts": "1.0.7"
@@ -40,5 +43,5 @@
   "bugs": {
     "url": "https://github.com/vegeta897/pubg-man/issues"
   },
-  "homepage": "http://pixelatomy.com/pubg-man"
+  "homepage": "https://vegeta897.github.io/pubg-man/"
 }
