@@ -4,7 +4,7 @@
 **PUBG Manager** is an idle/management game where you recruit virtual players and send them out to play simulated matches. Players in your roster have individual stats, including weapon proficiencies and skills.
 
 ## Demo
-🎲 Play the game here: http://pixelatomy.com/pubg-man/
+🎲 Play the game here: https://vegeta897.github.io/pubg-man/
 
 ## Incremental Game Flow
 Inspired by incremental/idle games, your progress is mostly cumulative and self-propelling. The overall game progression may look something like this:
