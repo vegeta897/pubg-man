@@ -1,39 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as Actions from '../actions';
 import Card, { CardContent } from 'material-ui/Card';
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
-import AddCircle from 'material-ui-icons/AddCircle';
+import List, { ListItem, ListItemText } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 
-class LFG extends Component {
+class Roster extends Component {
     render() {
-        let lftList = this.props.players.map((player, idx) => {
-            return <ListItem button key={idx}
-                             onClick={() => this.props.dispatch(Actions.addToRoster(player.username))}
-            >
+        let rosterList = this.props.players.map((player, idx) => {
+            return <ListItem button key={idx}>
                 <ListItemText primary={player.username} />
-                <ListItemIcon>
-                    <AddCircle />
-                </ListItemIcon>
-            </ListItem>
+            </ListItem>;
         });
-        if(lftList.isEmpty()) {
-            lftList = lftList.add(
+        if(rosterList.isEmpty()) {
+            rosterList = rosterList.add(
                 <ListItem disabled key={0}><ListItemText primary="None" /></ListItem>
             )
         }
         return (
-            <Card className="LFG">
+            <Card className='Roster'>
                 <CardContent>
                     <Typography type="headline" component="h2">
-                        Looking For Group
+                        Roster
                     </Typography>
                     <Typography secondary type="subheading">
-                        Players you can recruit
+                        Your players
                     </Typography>
                     <List>
-                        {lftList}
+                        {rosterList}
                     </List>
                 </CardContent>
             </Card>
@@ -42,9 +35,9 @@ class LFG extends Component {
 }
 function mapStateToProps(state, props) { // 'props' is passed in by parent component
     return {
-        players: state.get('lfg').map(player => {
+        players: state.get('roster').map(player => {
             return state.getIn(['players', 'byId', player]);
         })
     }
 }
-export default connect(mapStateToProps)(LFG);
+export default connect(mapStateToProps)(Roster);

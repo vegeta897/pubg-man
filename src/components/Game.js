@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
-import Players from './Players';
+import LFG from './LFG';
+import Roster from './Roster';
 import Grid from 'material-ui/Grid';
+import Typography from 'material-ui/Typography';
 
 class Game extends Component {
     componentDidMount() { // https://stackoverflow.com/a/36299242/2612679
@@ -17,10 +19,13 @@ class Game extends Component {
         return (
             <Grid container className='Game'>
                 <Grid item xs={12}>
-                    <h3>Tick: {this.props.global.tick}</h3>
+                    <Typography secondary type="caption">Tick: {this.props.global.tick}</Typography>
                 </Grid>
                 <Grid item md={4} sm={12}>
-                    <Players />
+                    <LFG />
+                </Grid>
+                <Grid item md={4} sm={12}>
+                    <Roster />
                 </Grid>
             </Grid>
         );
