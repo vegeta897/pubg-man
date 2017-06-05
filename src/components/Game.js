@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import LFG from './LFG';
 import Roster from './Roster';
-import Grid from 'material-ui/Grid';
-import Typography from 'material-ui/Typography';
+import { Grid } from 'semantic-ui-react';
 
 class Game extends Component {
     componentDidMount() { // https://stackoverflow.com/a/36299242/2612679
@@ -17,16 +16,20 @@ class Game extends Component {
     }
     render() {
         return (
-            <Grid container className='Game'>
-                <Grid item xs={12}>
-                    <Typography secondary type="caption">Tick: {this.props.global.tick}</Typography>
-                </Grid>
-                <Grid item md={4} sm={12}>
-                    <LFG />
-                </Grid>
-                <Grid item md={4} sm={12}>
-                    <Roster />
-                </Grid>
+            <Grid columns={3}>
+                <Grid.Row>
+                    <Grid.Column>
+                        Tick: {this.props.global.tick}
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                    <Grid.Column>
+                        <LFG />
+                    </Grid.Column>
+                    <Grid.Column>
+                        <Roster />
+                    </Grid.Column>
+                </Grid.Row>
             </Grid>
         );
     }

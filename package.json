@@ -4,15 +4,13 @@
   "description": "A management game based on PLAYERUNKNOWN'S BATTLEGROUNDS",
   "dependencies": {
     "immutable": "^3.8.1",
-    "material-ui": "^1.0.0-alpha.16",
-    "material-ui-icons": "^1.0.0-alpha.3",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
     "reduce-reducers": "^0.1.2",
     "redux": "^3.6.0",
     "seedrandom": "^2.4.3",
-    "typeface-roboto": "0.0.22"
+    "semantic-ui-react": "^0.68.5"
   },
   "devDependencies": {
     "react-scripts": "1.0.7"
@@ -22,7 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "rmdir /s /q dist\\static && xcopy /E /Y build\\* dist\\* && cd dist && git add --all && git commit -m \"Release %date:~-4,4%-%date:~-7,2%-%date:~-10,2%@%time:~-11,2%:%time:~-8,2%\" && git push"
+    "deploy": "rmdir /s /q dist\\static && xcopy /E /Y build\\* dist\\* && cd dist && git add --all && git commit -m \"Release %date:~-4,4%-%date:~-7,2%-%date:~-10,2% %time:~-11,2%:%time:~-8,2%\" && git push"
   },
   "repository": {
     "type": "git",

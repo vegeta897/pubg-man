@@ -1,34 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Card, { CardContent } from 'material-ui/Card';
-import List, { ListItem, ListItemText } from 'material-ui/List';
-import Typography from 'material-ui/Typography';
+import { Card, List } from 'semantic-ui-react';
 
 class Roster extends Component {
     render() {
         let rosterList = this.props.players.map((player, idx) => {
-            return <ListItem button key={idx}>
-                <ListItemText primary={player.username} />
-            </ListItem>;
+            return <List.Item icon="user" content={player.username} key={idx} />;
         });
         if(rosterList.isEmpty()) {
             rosterList = rosterList.add(
-                <ListItem disabled key={0}><ListItemText primary="None" /></ListItem>
+                <List.Item key={0} content="None" />
             )
         }
         return (
-            <Card className='Roster'>
-                <CardContent>
-                    <Typography type="headline" component="h2">
+            <Card>
+                <Card.Content>
+                    <Card.Header>
                         Roster
-                    </Typography>
-                    <Typography secondary type="subheading">
+                    </Card.Header>
+                    <Card.Meta>
                         Your players
-                    </Typography>
-                    <List>
-                        {rosterList}
-                    </List>
-                </CardContent>
+                    </Card.Meta>
+                    <Card.Description>
+                        <List>
+                            {rosterList}
+                        </List>
+                    </Card.Description>
+                </Card.Content>
             </Card>
         );
     }

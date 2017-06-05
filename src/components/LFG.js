@@ -1,42 +1,78 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
-import Card, { CardContent } from 'material-ui/Card';
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
-import AddCircle from 'material-ui-icons/AddCircle';
-import Typography from 'material-ui/Typography';
+import { Card, Icon, Popup, Modal, Table, Button } from 'semantic-ui-react';
 
 class LFG extends Component {
+    showDetail = () => !this.state.noPlayers && this.setState({ open: true });
+    closeDetail = () => this.setState({ open: false });
+    recruitPlayer = (username) => (() => {
+        this.props.dispatch(Actions.addToRoster(username))
+    });
+    constructor(props) {
+        super(props);
+        this.state = { open: false, noPlayers: true };
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({ noPlayers: nextProps.players.isEmpty() });
+    }
     render() {
-        let lftList = this.props.players.map((player, idx) => {
-            return <ListItem button key={idx}
-                             onClick={() => this.props.dispatch(Actions.addToRoster(player.username))}
-            >
-                <ListItemText primary={player.username} />
-                <ListItemIcon>
-                    <AddCircle />
-                </ListItemIcon>
-            </ListItem>
+        let lfgIcons = this.props.players.map((player, idx) => {
+            return <Popup key={idx} trigger={<Icon circular name="user" />}
+                          content={player.username}
+                          inverted position="bottom left"
+            />
         });
-        if(lftList.isEmpty()) {
-            lftList = lftList.add(
-                <ListItem disabled key={0}><ListItemText primary="None" /></ListItem>
+        if(this.state.noPlayers) {
+            lfgIcons = lfgIcons.add(
+                <span key={0}>None</span>
             )
         }
+        let lfgDetail = this.props.players.map(({ username }, idx) => {
+            return <Table.Row key={idx}>
+                <Table.Cell>{username}</Table.Cell>
+                <Table.Cell>Just a player</Table.Cell>
+                <Table.Cell textAlign="center">
+                    <Button icon="plus" onClick={this.recruitPlayer(username)} />
+                </Table.Cell>
+            </Table.Row>
+        });
         return (
-            <Card className="LFG">
-                <CardContent>
-                    <Typography type="headline" component="h2">
-                        Looking For Group
-                    </Typography>
-                    <Typography secondary type="subheading">
-                        Players you can recruit
-                    </Typography>
-                    <List>
-                        {lftList}
-                    </List>
-                </CardContent>
-            </Card>
+            <div>
+                <Card onClick={this.state.noPlayers ? null : this.showDetail}
+                      color={this.state.noPlayers ? null : 'orange'}>
+                    <Card.Content>
+                        <Card.Header>
+                            Looking for Group
+                        </Card.Header>
+                        <Card.Meta>
+                            Players you can recruit
+                        </Card.Meta>
+                        <Card.Description>
+                            {lfgIcons}
+                        </Card.Description>
+                    </Card.Content>
+                </Card>
+                <Modal open={!this.state.noPlayers && this.state.open}
+                       onClose={this.closeDetail} dimmer="inverted">
+                    <Modal.Header>Looking for Group</Modal.Header>
+                    <Modal.Content>
+                        <Table sortable celled>
+                            {/* TODO: https://react.semantic-ui.com/collections/table#table-example-sortable */}
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell>Name</Table.HeaderCell>
+                                    <Table.HeaderCell>Description</Table.HeaderCell>
+                                    <Table.HeaderCell width={2} textAlign="center">Recruit</Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+                            <Table.Body>
+                                {lfgDetail}
+                            </Table.Body>
+                        </Table>
+                    </Modal.Content>
+                </Modal>
+            </div>
         );
     }
 }
