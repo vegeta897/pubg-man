@@ -16,7 +16,7 @@ class Game extends Component {
     }
     render() {
         return (
-            <Grid columns={3}>
+            <Grid columns={3} className="Game">
                 <Grid.Row>
                     <Grid.Column>
                         Tick: {this.props.global.tick}
@@ -28,6 +28,9 @@ class Game extends Component {
                     </Grid.Column>
                     <Grid.Column>
                         <Roster />
+                    </Grid.Column>
+                    <Grid.Column>
+                        
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

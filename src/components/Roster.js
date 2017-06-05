@@ -13,7 +13,7 @@ class Roster extends Component {
             )
         }
         return (
-            <Card>
+            <Card fluid>
                 <Card.Content>
                     <Card.Header>
                         Roster

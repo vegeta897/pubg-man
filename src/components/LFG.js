@@ -39,8 +39,9 @@ class LFG extends Component {
         });
         return (
             <div>
-                <Card onClick={this.state.noPlayers ? null : this.showDetail}
-                      color={this.state.noPlayers ? null : 'orange'}>
+                <Card fluid onClick={this.state.noPlayers ? null : this.showDetail}
+                      color={this.state.noPlayers ? null : 'orange'}
+                      className={this.state.noPlayers ? null : 'bright-orange'}>
                     <Card.Content>
                         <Card.Header>
                             Looking for Group
