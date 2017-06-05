@@ -5,8 +5,7 @@ import Game from './Game'
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = { tooSmall: window.innerWidth < 1200 };
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.state = { tooSmall: window.innerWidth < 1200, smallOkay: false };
     }
     componentDidMount() {
         this.updateWindowDimensions();
@@ -15,9 +14,12 @@ class App extends Component {
     componentWillUnmount() {
         window.removeEventListener('resize', this.updateWindowDimensions);
     }
-    updateWindowDimensions() { // https://stackoverflow.com/a/42141641/2612679
-        this.setState({ tooSmall: window.innerWidth < 1200 });
-    }
+    updateWindowDimensions = () => { // https://stackoverflow.com/a/42141641/2612679
+        this.setState({ tooSmall: !this.state.smallOkay && window.innerWidth < 1200 });
+    };
+    acceptSmallness = () => {
+        this.setState({ smallOkay: true, tooSmall: false });
+    };
     render() {
         let visibility = this.state.tooSmall ? {} : { display: 'none' };
         return (
@@ -25,7 +27,9 @@ class App extends Component {
                 <Segment inverted padded attached={this.state.tooSmall ? "top" : null}>
                     <Header as="h1">PUBG Manager</Header>
                 </Segment>
-                <Message style={visibility} icon attached={this.state.tooSmall ? "bottom" : null} warning>
+                <Message style={visibility} icon warning
+                         attached={this.state.tooSmall ? "bottom" : null}
+                         onDismiss={this.acceptSmallness}>
                     <Icon name="resize horizontal" />
                     <Message.Content>
                         <Message.Header>This game is best played at 1200px width</Message.Header>
