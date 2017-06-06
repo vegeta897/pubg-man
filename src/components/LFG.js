@@ -55,7 +55,7 @@ class LFG extends Component {
                     </Card.Content>
                 </Card>
                 <Modal open={!this.state.noPlayers && this.state.open}
-                       onClose={this.closeDetail} dimmer="inverted">
+                       onClose={this.closeDetail} dimmer="inverted" closeIcon="close">
                     <Modal.Header>Looking for Group</Modal.Header>
                     <Modal.Content>
                         <Table sortable celled>
