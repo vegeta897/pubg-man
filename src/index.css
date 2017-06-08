@@ -13,3 +13,17 @@
 .ui.modals.dimmer.inverted>.modal>.close.icon {
   color: rgba(0, 0, 0, 0.87);
 }
+
+.ui.padded.table td {
+  padding: 0.8em 1em;
+}
+
+/* Overrides */
+
+.zero-padding {
+  padding: 0 !important;
+}
+
+.no-border {
+  border: none !important;
+}

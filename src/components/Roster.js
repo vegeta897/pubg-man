@@ -3,15 +3,21 @@ import { connect } from 'react-redux';
 import { Card, List } from 'semantic-ui-react';
 
 class Roster extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { noPlayers: true };
+    }
+    componentWillMount() {
+        this.setState({ noPlayers: this.props.players.isEmpty() });
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({ noPlayers: nextProps.players.isEmpty() });
+    }
     render() {
-        let rosterList = this.props.players.map((player, idx) => {
+        let rosterList = this.props.players.toJS().map((player, idx) => {
             return <List.Item icon="user" content={player.username} key={idx} />;
         });
-        if(rosterList.isEmpty()) {
-            rosterList = rosterList.add(
-                <List.Item key={0} content="None" />
-            )
-        }
+        if(this.state.noPlayers) rosterList.push(<List.Item key={0} content="None" />);
         return (
             <Card fluid>
                 <Card.Content>

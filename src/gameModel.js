@@ -18,10 +18,21 @@ export const InitialState = immutable.fromJS({
     }
 });
 
-export const CreatePlayer = () => {
-    let username = pickInArray(Usernames);
-    removeFromArray(username, Usernames);
-    return {
-        username
+export const CreatePlayer = (state, count = 1) => {
+    let newPlayers = [];
+    for(let i = 0; i < count; i++) {
+        let username = pickInArray(Usernames);
+        removeFromArray(username, Usernames);
+        newPlayers.push({
+            username
+        });
     }
+    newPlayers = immutable.Set(newPlayers);
+    let newPlayerList = newPlayers.map(player => player.username);
+    return state.withMutations(state => {
+        state.updateIn(['players', 'byId'], byId => byId.merge(immutable.Map(newPlayers.map(
+            player => [player.username, player]
+        )))).updateIn(['players','allIds'], allIds => allIds.merge(newPlayerList))
+            .update('lfg', lfg => lfg.merge(newPlayerList));
+    });
 };

@@ -9,26 +9,26 @@ class LFG extends Component {
     recruitPlayer = (username) => (() => {
         this.props.dispatch(Actions.addToRoster(username))
     });
+    recruitAll = () => this.props.players.forEach(player => this.props.dispatch(Actions.addToRoster(player.username)));
     constructor(props) {
         super(props);
         this.state = { open: false, noPlayers: true };
+    }
+    componentWillMount() {
+        this.setState({ noPlayers: this.props.players.isEmpty() });
     }
     componentWillReceiveProps(nextProps) {
         this.setState({ noPlayers: nextProps.players.isEmpty() });
     }
     render() {
-        let lfgIcons = this.props.players.map((player, idx) => {
+        let lfgIcons = this.props.players.toJS().map((player, idx) => {
             return <Popup key={idx} trigger={<Icon circular name="user" />}
                           content={player.username}
                           inverted position="bottom left"
             />
         });
-        if(this.state.noPlayers) {
-            lfgIcons = lfgIcons.add(
-                <span key={0}>None</span>
-            )
-        }
-        let lfgDetail = this.props.players.map(({ username }, idx) => {
+        if(this.state.noPlayers) lfgIcons.push(<span key={0}>None</span>);
+        let lfgDetail = this.props.players.toJS().map(({ username }, idx) => {
             return <Table.Row key={idx}>
                 <Table.Cell>{username}</Table.Cell>
                 <Table.Cell>Just a player</Table.Cell>
@@ -55,14 +55,14 @@ class LFG extends Component {
                     </Card.Content>
                 </Card>
                 <Modal open={!this.state.noPlayers && this.state.open}
-                       onClose={this.closeDetail} dimmer="inverted" closeIcon="close">
+                       onClose={this.closeDetail} dimmer="inverted">
                     <Modal.Header>Looking for Group</Modal.Header>
-                    <Modal.Content>
-                        <Table sortable celled>
+                    <Modal.Content className="zero-padding">
+                        <Table sortable celled padded className="no-border">
                             {/* TODO: https://react.semantic-ui.com/collections/table#table-example-sortable */}
                             <Table.Header>
                                 <Table.Row>
-                                    <Table.HeaderCell>Name</Table.HeaderCell>
+                                    <Table.HeaderCell width={3}>Name</Table.HeaderCell>
                                     <Table.HeaderCell>Description</Table.HeaderCell>
                                     <Table.HeaderCell width={2} textAlign="center">Recruit</Table.HeaderCell>
                                 </Table.Row>
@@ -72,6 +72,10 @@ class LFG extends Component {
                             </Table.Body>
                         </Table>
                     </Modal.Content>
+                    <Modal.Actions>
+                        <Button content="Cancel" onClick={this.closeDetail} />
+                        <Button positive icon="users" content="Recruit All" onClick={this.recruitAll} />
+                    </Modal.Actions>
                 </Modal>
             </div>
         );
