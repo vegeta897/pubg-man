@@ -8,10 +8,9 @@ import { Grid } from 'semantic-ui-react';
 
 class Game extends Component {
     componentDidMount() { // https://stackoverflow.com/a/36299242/2612679
-        this.props.actions.startTick(setInterval(this.props.actions.tick, 1000));
+        this.props.actions.startTick();
     }
     componentWillUnmount() {
-        clearInterval(this.props.global.intervalID);
         this.props.actions.stopTick();
     }
     render() {
