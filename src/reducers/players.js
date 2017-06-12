@@ -7,7 +7,7 @@ import { Usernames } from '../config/data';
 export default (state, action) => {
     switch(action.type) {
         case Actions.CREATE_PLAYER:
-            seedrandom(state.getIn('global','seed') + state.getIn('global','tick'), { global: true });
+            seedrandom(state.getIn(['global','seed']) + state.getIn(['global','tick']), { global: true });
             let newPlayers = [];
             for(let i = 0; i < action.count; i++) {
                 let username = pickInArray(Usernames);
