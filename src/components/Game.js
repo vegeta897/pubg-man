@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import LFG from './LFG';
 import Roster from './Roster';
+import Teams from './Teams';
 import { Grid } from 'semantic-ui-react';
 
 class Game extends Component {
@@ -24,9 +25,10 @@ class Game extends Component {
                 <Grid.Row>
                     <Grid.Column>
                         <LFG />
+                        <Roster />
                     </Grid.Column>
                     <Grid.Column>
-                        <Roster />
+                        <Teams />
                     </Grid.Column>
                     <Grid.Column>
                         

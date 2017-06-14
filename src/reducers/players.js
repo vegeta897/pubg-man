@@ -9,8 +9,8 @@ export default (state, action) => {
         case Actions.CREATE_PLAYER:
             seedrandom(state.getIn(['global','seed']) + state.getIn(['global','tick']), { global: true });
             let newPlayers = [];
-            for(let i = 0; i < action.count; i++) {
-                let username = pickInArray(Usernames);
+            for(let i = 0; i < (action.count || 1); i++) {
+                let username = pickInArray(Usernames); // TODO: Check if empty
                 removeFromArray(username, Usernames);
                 newPlayers.push({
                     username
@@ -27,6 +27,9 @@ export default (state, action) => {
         case Actions.RECRUIT_PLAYER:
             return state.update('lfg', lfg => lfg.remove(action.username))
                 .update('roster', roster => roster.add(action.username));
+        case Actions.CREATE_TEAM:
+            return state.update('teams', teams => teams.add(action.usernames))
+                .update('roster', roster => roster.subtract(action.usernames));
         default:
             return state;
     }

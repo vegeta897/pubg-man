@@ -21,16 +21,10 @@ class Roster extends Component {
         return (
             <Card fluid>
                 <Card.Content>
-                    <Card.Header>
-                        Roster
-                    </Card.Header>
-                    <Card.Meta>
-                        Your players
-                    </Card.Meta>
+                    <Card.Header content="Roster" />
+                    <Card.Meta content="Your players" />
                     <Card.Description>
-                        <List>
-                            {rosterList}
-                        </List>
+                        <List children={rosterList} />
                     </Card.Description>
                 </Card.Content>
             </Card>
