@@ -19,7 +19,7 @@ class Roster extends Component {
         });
         if(this.state.noPlayers) rosterList.push(<List.Item key={0} content="None" />);
         return (
-            <Card fluid>
+            <Card fluid className='Roster'>
                 <Card.Content>
                     <Card.Header content="Roster" />
                     <Card.Meta content="Your players" />

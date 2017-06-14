@@ -10,12 +10,24 @@
   box-shadow: 0 0 0 1px #d4d4d5, 0 2px 2px 2px #f26202, 0 1px 3px 0 #bcbdbd;
 }
 
+.ui .LFG .circular.icon {
+  margin: 0 .25rem .2rem 0;
+}
+
 .ui.modals.dimmer.inverted>.modal>.close.icon {
   color: rgba(0, 0, 0, 0.87);
 }
 
 .ui.padded.table td {
   padding: 0.8em 1em;
+}
+
+.ui.table.selectable tr.clickable {
+  cursor: pointer;
+}
+
+.ui.table.selectable tr.clickable.disabled {
+  cursor: default;
 }
 
 /* Overrides */

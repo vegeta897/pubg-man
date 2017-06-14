@@ -40,7 +40,7 @@ class LFG extends Component {
             </Table.Row>
         });
         return (
-            <div>
+            <div className='LFG'>
             <Card fluid onClick={this.state.noPlayers ? null : this.showDetail}
                   color={this.state.noPlayers ? null : 'orange'}
                   className={this.state.noPlayers ? null : 'bright-orange'}>
@@ -54,7 +54,7 @@ class LFG extends Component {
                    onClose={this.closeDetail} dimmer="inverted">
                 <Modal.Header content="Looking for Group" />
                 <Modal.Content className="zero-padding">
-                    <Table sortable celled padded className="no-border">
+                    <Table sortable celled selectable padded className="no-border">
                         {/* TODO: https://react.semantic-ui.com/collections/table#table-example-sortable */}
                         <Table.Header>
                             <Table.Row>

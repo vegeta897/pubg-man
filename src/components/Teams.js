@@ -14,38 +14,39 @@ class Teams extends Component {
         super(props);
         this.state = { noTeams: true, noFreePlayers: true, selectedPlayers: immutable.Set() };
     }
-    selectPlayer = username => ((event, { checked }) => {
-        let action = checked ? 'add' : 'remove';
+    selectPlayer = username => (() => {
+        let action = this.state.selectedPlayers.has(username) ? 'remove' : 'add';
         this.setState({ selectedPlayers: this.state.selectedPlayers[action](username) });
     });
     createTeam = () => {
         this.props.dispatch(Actions.createTeam(this.state.selectedPlayers));
-        this.setState({ selectedPlayers: immutable.Set(), 
-            open: this.props.roster.size > this.state.selectedPlayers.size });
+        this.setState({ selectedPlayers: immutable.Set(), open: false });
     };
     componentWillMount = () => this.refreshState(this.props);
     componentWillReceiveProps = nextProps => this.refreshState(nextProps);
     render() {
         let teamList = this.props.teams.toJS().map((team, idx) => {
-            return <List.Item icon="user" content={team.join(' · ')} key={idx} />;
+            return <List.Item icon="users" content={team.join(' · ')} key={idx} />;
         });
-        if(this.state.noTeams) teamList.push(<List.Item key={0} content="None" />);
+        if(this.state.noTeams) teamList.push(<List.Item key={0} content="Nodne" />);
         let rosterDetail = this.props.roster.toJS().map(({ username }, idx) => {
-            return <Table.Row key={idx} positive={this.state.selectedPlayers.has(username)}
+            return <Table.Row className="clickable" key={idx} 
+                              positive={this.state.selectedPlayers.has(username)}
                               disabled={this.state.selectedPlayers.size === 4
-                              && !this.state.selectedPlayers.has(username)}>
+                              && !this.state.selectedPlayers.has(username)}
+                              onClick={this.selectPlayer(username)}>
                 <Table.Cell>{username}</Table.Cell>
                 <Table.Cell>Just a player</Table.Cell>
-                <Table.Cell textAlign="center">
+                <Table.Cell textAlign="center"><a>
                     <Checkbox fitted onChange={this.selectPlayer(username)}
                               checked={this.state.selectedPlayers.has(username)}
                               readOnly={this.state.selectedPlayers.size === 4
                               && !this.state.selectedPlayers.has(username)} />
-                </Table.Cell>
+                </a></Table.Cell>
             </Table.Row>
         });
         return (
-            <div>
+            <div className='Teams'>
             <Card fluid>
                 <Card.Content>
                     <Card.Header content="Teams" />
@@ -63,7 +64,7 @@ class Teams extends Component {
                    onClose={this.closeDetail} dimmer="inverted">
                 <Modal.Header content="Create a Team" />
                 <Modal.Content className="zero-padding">
-                    <Table sortable celled padded className="no-border">
+                    <Table sortable celled selectable padded className="no-border">
                         <Table.Header>
                             <Table.Row>
                                 <Table.HeaderCell width={3} content="Nameg" />
