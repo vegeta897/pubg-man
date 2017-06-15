@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import LFG from './LFG';
 import Roster from './Roster';
 import Teams from './Teams';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Step } from 'semantic-ui-react';
 
 class Game extends Component {
     componentDidMount() { // https://stackoverflow.com/a/36299242/2612679
-        this.props.actions.startTick();
+        this.props.dispatch(Actions.startTick());
     }
     componentWillUnmount() {
-        this.props.actions.stopTick();
+        this.props.dispatch(Actions.stopTick());
     }
     render() {
         return (
-            <Grid columns={3} className="Game">
+            <Grid columns="equal" className="Game">
                 <Grid.Row>
                     <Grid.Column>
-                        Tick: {this.props.global.tick}
+                        <Step.Group fluid ordered>
+                            <Step title="Recruit" description="Add players to your roster"
+                                  completed={this.props.recruited} />
+                            <Step title="Team Up" description="Create teams with your players"
+                                  completed={this.props.teamed} />
+                            <Step title="Battle" description="Send your teams out into matches" />
+                        </Step.Group>
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>
@@ -40,12 +45,8 @@ class Game extends Component {
 }
 function mapStateToProps(state, props) {
     return {
-        global: state.get('global').toJS()
+        recruited: !state.get('roster').isEmpty() || !state.get('teams').isEmpty(),
+        teamed: !state.get('teams').isEmpty()
     }
 }
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(Actions, dispatch)
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Game);
+export default connect(mapStateToProps)(Game);

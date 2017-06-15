@@ -2,17 +2,14 @@ import React, { Component } from 'react';
 import immutable from 'immutable';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
-import { Card, List, Button, Modal, Table, Checkbox } from 'semantic-ui-react';
+import { Card, List, Button, Modal, Table, Checkbox, Label } from 'semantic-ui-react';
 
 class Teams extends Component {
     showDetail = () => this.setState({ open: true });
     closeDetail = () => this.setState({ open: false });
-    refreshState = props => {
-        this.setState({ noTeams: props.teams.isEmpty(), noFreePlayers: props.roster.isEmpty() });
-    };
     constructor(props) {
         super(props);
-        this.state = { noTeams: true, noFreePlayers: true, selectedPlayers: immutable.Set() };
+        this.state = { selectedPlayers: immutable.Set() };
     }
     selectPlayer = username => (() => {
         let action = this.state.selectedPlayers.has(username) ? 'remove' : 'add';
@@ -22,13 +19,11 @@ class Teams extends Component {
         this.props.dispatch(Actions.createTeam(this.state.selectedPlayers));
         this.setState({ selectedPlayers: immutable.Set(), open: false });
     };
-    componentWillMount = () => this.refreshState(this.props);
-    componentWillReceiveProps = nextProps => this.refreshState(nextProps);
     render() {
         let teamList = this.props.teams.toJS().map((team, idx) => {
             return <List.Item icon="users" content={team.join(' · ')} key={idx} />;
         });
-        if(this.state.noTeams) teamList.push(<List.Item key={0} content="Nodne" />);
+        if(this.props.noTeams) teamList.push(<List.Item key={0} content="Nodne" />);
         let rosterDetail = this.props.roster.toJS().map(({ username }, idx) => {
             return <Table.Row className="clickable" key={idx} 
                               positive={this.state.selectedPlayers.has(username)}
@@ -49,6 +44,9 @@ class Teams extends Component {
             <div className='Teams'>
             <Card fluid>
                 <Card.Content>
+                    {this.props.teams.size > 0 &&
+                    <Label circular floating content={this.props.teams.size}
+                           color="green" size="large" />}
                     <Card.Header content="Teams" />
                     <Card.Meta content="Your teams" />
                     <Card.Description>
@@ -57,10 +55,10 @@ class Teams extends Component {
                 </Card.Content>
                 <Card.Content extra>
                     <Button icon="plus" positive content="Create" 
-                            onClick={this.showDetail} disabled={this.state.noFreePlayers} />
+                            onClick={this.showDetail} disabled={this.props.noFreePlayers} />
                 </Card.Content>
             </Card>
-            <Modal open={!this.state.noFreePlayers && this.state.open}
+            <Modal open={!this.props.noFreePlayers && this.state.open}
                    onClose={this.closeDetail} dimmer="inverted">
                 <Modal.Header content="Create a Team" />
                 <Modal.Content className="zero-padding">
@@ -90,7 +88,9 @@ function mapStateToProps(state, props) { // 'props' is passed in by parent compo
         roster: state.get('roster').map(player => {
             return state.getIn(['players', 'byId', player]);
         }),
-        teams: state.get('teams')
+        teams: state.get('teams'),
+        noTeams: state.get('teams').isEmpty(),
+        noFreePlayers: state.get('roster').isEmpty()
     }
 }
 export default connect(mapStateToProps)(Teams);

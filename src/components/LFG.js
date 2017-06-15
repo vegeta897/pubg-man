@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
-import { Card, Icon, Popup, Modal, Table, Button } from 'semantic-ui-react';
+import { Card, Icon, Popup, Modal, Table, Button, Label } from 'semantic-ui-react';
 
 class LFG extends Component {
-    showDetail = () => !this.state.noPlayers && this.setState({ open: true });
+    showDetail = () => !this.props.noPlayers && this.setState({ open: true });
     closeDetail = () => this.setState({ open: false });
     recruitPlayer = username => (() => {
         this.props.dispatch(Actions.addToRoster(username))
@@ -13,15 +13,10 @@ class LFG extends Component {
         this.props.players.forEach(player => this.props.dispatch(Actions.addToRoster(player.username)));
         this.setState({ open: false });
     };
-    refreshState = props => {
-        this.setState({ noPlayers: props.players.isEmpty() });
-    };
     constructor(props) {
         super(props);
-        this.state = { open: false, noPlayers: true };
+        this.state = { open: false };
     }
-    componentWillMount = () => this.refreshState(this.props);
-    componentWillReceiveProps = nextProps => this.refreshState(nextProps);
     render() {
         let lfgIcons = this.props.players.toJS().map((player, idx) => {
             return <Popup key={idx} trigger={<Icon circular name="user" />}
@@ -29,7 +24,7 @@ class LFG extends Component {
                           inverted position="bottom left"
             />
         });
-        if(this.state.noPlayers) lfgIcons.push(<span key={0}>None</span>);
+        if(this.props.noPlayers) lfgIcons.push(<span key={0}>None</span>);
         let lfgDetail = this.props.players.toJS().map(({ username }, idx) => {
             return <Table.Row key={idx}>
                 <Table.Cell>{username}</Table.Cell>
@@ -41,16 +36,21 @@ class LFG extends Component {
         });
         return (
             <div className='LFG'>
-            <Card fluid onClick={this.state.noPlayers ? null : this.showDetail}
-                  color={this.state.noPlayers ? null : 'orange'}
-                  className={this.state.noPlayers ? null : 'bright-orange'}>
+            <Card fluid onClick={this.props.noPlayers ? null : this.showDetail}
+                  color={this.props.noPlayers ? null : 'orange'}
+                  className={this.props.noPlayers ? null : 'bright-orange'}>
                 <Card.Content>
-                    <Card.Header content="Looking for Group" />
+                    {this.props.players.size > 0 &&
+                    <Label circular floating content={this.props.players.size}
+                           color="orange" size="large" />}
+                    <Card.Header>
+                        Looking for Group 
+                    </Card.Header>
                     <Card.Meta content="Players you can recruit" />
                     <Card.Description children={lfgIcons} />
                 </Card.Content>
             </Card>
-            <Modal open={!this.state.noPlayers && this.state.open}
+            <Modal open={!this.props.noPlayers && this.state.open}
                    onClose={this.closeDetail} dimmer="inverted">
                 <Modal.Header content="Looking for Group" />
                 <Modal.Content className="zero-padding">
@@ -67,7 +67,7 @@ class LFG extends Component {
                     </Table>
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button content="Cancel" onClick={this.closeDetail} />
+                    <Button content="Close" onClick={this.closeDetail} />
                     <Button positive icon="users" labelPosition='right' content="Recruit All" onClick={this.recruitAll} />
                 </Modal.Actions>
             </Modal>
@@ -79,7 +79,8 @@ function mapStateToProps(state, props) { // 'props' is passed in by parent compo
     return {
         players: state.get('lfg').map(player => {
             return state.getIn(['players', 'byId', player]);
-        })
+        }),
+        noPlayers: state.get('lfg').isEmpty()
     }
 }
 export default connect(mapStateToProps)(LFG);

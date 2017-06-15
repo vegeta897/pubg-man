@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Segment, Header, Container, Message, Icon } from 'semantic-ui-react';
 import Game from './Game'
 
@@ -25,7 +26,7 @@ class App extends Component {
         return (
             <Container className='App'>
                 <Segment inverted padded attached={this.state.tooSmall ? "top" : null}>
-                    <Header as="h1">PUBG Manager</Header>
+                    <Header inverted as="h1" content="PUBG Manager" subheader={`Tick: ${this.props.tick}`} />
                 </Segment>
                 <Message style={visibility} icon warning
                          attached={this.state.tooSmall ? "bottom" : null}
@@ -41,4 +42,9 @@ class App extends Component {
         );
     }
 }
-export default App;
+function mapStateToProps(state, props) {
+    return {
+        tick: state.getIn(['global','tick'])
+    }
+}
+export default connect(mapStateToProps)(App);

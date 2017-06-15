@@ -22,6 +22,10 @@
   padding: 0.8em 1em;
 }
 
+.ui.card.Roster {
+  margin-top: 1.8em;
+}
+
 .ui.table.selectable tr.clickable {
   cursor: pointer;
 }

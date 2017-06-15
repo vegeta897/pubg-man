@@ -1,26 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Card, List } from 'semantic-ui-react';
+import { Card, List, Label } from 'semantic-ui-react';
 
 class Roster extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { noPlayers: true };
-    }
-    componentWillMount() {
-        this.setState({ noPlayers: this.props.players.isEmpty() });
-    }
-    componentWillReceiveProps(nextProps) {
-        this.setState({ noPlayers: nextProps.players.isEmpty() });
-    }
     render() {
         let rosterList = this.props.players.toJS().map((player, idx) => {
             return <List.Item icon="user" content={player.username} key={idx} />;
         });
-        if(this.state.noPlayers) rosterList.push(<List.Item key={0} content="None" />);
+        if(this.props.noPlayers) rosterList.push(<List.Item key={0} content="None" />);
         return (
             <Card fluid className='Roster'>
                 <Card.Content>
+                    {this.props.players.size > 0 &&
+                    <Label circular floating content={this.props.players.size}
+                           color="grey" size="large" />}
                     <Card.Header content="Roster" />
                     <Card.Meta content="Your players" />
                     <Card.Description>
@@ -35,7 +28,8 @@ function mapStateToProps(state, props) { // 'props' is passed in by parent compo
     return {
         players: state.get('roster').map(player => {
             return state.getIn(['players', 'byId', player]);
-        })
+        }),
+        noPlayers: state.get('roster').isEmpty()
     }
 }
 export default connect(mapStateToProps)(Roster);
