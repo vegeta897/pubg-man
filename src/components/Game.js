@@ -4,6 +4,7 @@ import * as Actions from '../actions';
 import LFG from './LFG';
 import Roster from './Roster';
 import Teams from './Teams';
+import Map from './Map';
 import { Grid, Step } from 'semantic-ui-react';
 
 class Game extends Component {
@@ -36,7 +37,7 @@ class Game extends Component {
                         <Teams />
                     </Grid.Column>
                     <Grid.Column>
-                        
+                        <Map />
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

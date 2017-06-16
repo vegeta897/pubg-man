@@ -7,18 +7,14 @@ class Roster extends Component {
         let rosterList = this.props.players.toJS().map((player, idx) => {
             return <List.Item icon="user" content={player.username} key={idx} />;
         });
-        if(this.props.noPlayers) rosterList.push(<List.Item key={0} content="None" />);
         return (
             <Card fluid className='Roster'>
                 <Card.Content>
                     {this.props.players.size > 0 &&
-                    <Label circular floating content={this.props.players.size}
-                           color="grey" size="large" />}
+                    <Label circular floating size="large" content={this.props.players.size} />}
                     <Card.Header content="Roster" />
                     <Card.Meta content="Your players" />
-                    <Card.Description>
-                        <List children={rosterList} />
-                    </Card.Description>
+                    <Card.Description content={this.props.noPlayers ? 'None' : <List children={rosterList} />} />
                 </Card.Content>
             </Card>
         );

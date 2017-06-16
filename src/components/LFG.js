@@ -24,7 +24,6 @@ class LFG extends Component {
                           inverted position="bottom left"
             />
         });
-        if(this.props.noPlayers) lfgIcons.push(<span key={0}>None</span>);
         let lfgDetail = this.props.players.toJS().map(({ username }, idx) => {
             return <Table.Row key={idx}>
                 <Table.Cell>{username}</Table.Cell>
@@ -47,7 +46,7 @@ class LFG extends Component {
                         Looking for Group 
                     </Card.Header>
                     <Card.Meta content="Players you can recruit" />
-                    <Card.Description children={lfgIcons} />
+                    <Card.Description content={this.props.noPlayers ? 'None' : lfgIcons} />
                 </Card.Content>
             </Card>
             <Modal open={!this.props.noPlayers && this.state.open}

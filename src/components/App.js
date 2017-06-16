@@ -22,13 +22,12 @@ class App extends Component {
         this.setState({ smallOkay: true, tooSmall: false });
     };
     render() {
-        let visibility = this.state.tooSmall ? {} : { display: 'none' };
         return (
             <Container className='App'>
                 <Segment inverted padded attached={this.state.tooSmall ? "top" : null}>
-                    <Header inverted as="h1" content="PUBG Manager" subheader={`Tick: ${this.props.tick}`} />
+                    <Header inverted as="h1" content="PUBG Manager" />
                 </Segment>
-                <Message style={visibility} icon warning
+                <Message style={this.state.tooSmall ? {} : { display: 'none' }} icon warning
                          attached={this.state.tooSmall ? "bottom" : null}
                          onDismiss={this.acceptSmallness}>
                     <Icon name="resize horizontal" />

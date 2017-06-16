@@ -23,7 +23,6 @@ class Teams extends Component {
         let teamList = this.props.teams.toJS().map((team, idx) => {
             return <List.Item icon="users" content={team.join(' · ')} key={idx} />;
         });
-        if(this.props.noTeams) teamList.push(<List.Item key={0} content="Nodne" />);
         let rosterDetail = this.props.roster.toJS().map(({ username }, idx) => {
             return <Table.Row className="clickable" key={idx} 
                               positive={this.state.selectedPlayers.has(username)}
@@ -49,9 +48,7 @@ class Teams extends Component {
                            color="green" size="large" />}
                     <Card.Header content="Teams" />
                     <Card.Meta content="Your teams" />
-                    <Card.Description>
-                        <List children={teamList} />
-                    </Card.Description>
+                    <Card.Description content={this.props.noTeams ? 'None' : <List children={teamList} />} />
                 </Card.Content>
                 <Card.Content extra>
                     <Button icon="plus" positive content="Create" 
