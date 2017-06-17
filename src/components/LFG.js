@@ -18,14 +18,16 @@ class LFG extends Component {
         this.state = { open: false };
     }
     render() {
-        let lfgIcons = this.props.players.toJS().map((player, idx) => {
-            return <Popup key={idx} trigger={<Icon circular name="user" />}
-                          content={player.username}
-                          inverted position="bottom left"
+        const { noPlayers } = this.props;
+        let key = 0;
+        let lfgIcons = this.props.players.map(player => {
+            return <Popup key={key++} trigger={<Icon circular name="user" />}
+                          content={player.username} inverted position="bottom left"
             />
         });
-        let lfgDetail = this.props.players.toJS().map(({ username }, idx) => {
-            return <Table.Row key={idx}>
+        key = 0;
+        let lfgDetail = this.props.players.toJS().map(({ username }) => {
+            return <Table.Row key={key++}>
                 <Table.Cell>{username}</Table.Cell>
                 <Table.Cell>Just a player</Table.Cell>
                 <Table.Cell textAlign="center">
@@ -35,9 +37,8 @@ class LFG extends Component {
         });
         return (
             <div className='LFG'>
-            <Card fluid onClick={this.props.noPlayers ? null : this.showDetail}
-                  color={this.props.noPlayers ? null : 'orange'}
-                  className={this.props.noPlayers ? null : 'bright-orange'}>
+            <Card fluid onClick={noPlayers ? null : this.showDetail}
+                  color={noPlayers ? null : 'orange'} className={noPlayers ? null : 'bright-orange'}>
                 <Card.Content>
                     {this.props.players.size > 0 &&
                     <Label circular floating content={this.props.players.size}
@@ -46,11 +47,10 @@ class LFG extends Component {
                         Looking for Group 
                     </Card.Header>
                     <Card.Meta content="Players you can recruit" />
-                    <Card.Description content={this.props.noPlayers ? 'None' : lfgIcons} />
+                    <Card.Description content={noPlayers ? 'None' : lfgIcons} />
                 </Card.Content>
             </Card>
-            <Modal open={!this.props.noPlayers && this.state.open}
-                   onClose={this.closeDetail} dimmer="inverted">
+            <Modal open={!noPlayers && this.state.open} onClose={this.closeDetail} dimmer="inverted">
                 <Modal.Header content="Looking for Group" />
                 <Modal.Content className="zero-padding">
                     <Table sortable celled selectable padded className="no-border">

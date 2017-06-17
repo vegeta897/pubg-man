@@ -1,4 +1,4 @@
-import { pickInArray, removeFromArray, } from '../util';
+import { pickInArray, removeFromArray } from '../util';
 import immutable from 'immutable';
 import seedrandom from 'seedrandom';
 import { Actions } from '../actions';
@@ -28,7 +28,7 @@ export default (state, action) => {
             return state.update('lfg', lfg => lfg.remove(action.username))
                 .update('roster', roster => roster.add(action.username));
         case Actions.CREATE_TEAM:
-            return state.update('teams', teams => teams.add(action.usernames))
+            return state.setIn(['teams', action.teamName], action.usernames)
                 .update('roster', roster => roster.subtract(action.usernames));
         default:
             return state;

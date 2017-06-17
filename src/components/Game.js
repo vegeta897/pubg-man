@@ -4,6 +4,7 @@ import * as Actions from '../actions';
 import LFG from './LFG';
 import Roster from './Roster';
 import Teams from './Teams';
+import Deploy from './Deploy';
 import Map from './Map';
 import { Grid, Step } from 'semantic-ui-react';
 
@@ -24,7 +25,7 @@ class Game extends Component {
                                   completed={this.props.recruited} />
                             <Step title="Team Up" description="Create teams with your players"
                                   completed={this.props.teamed} />
-                            <Step title="Battle" description="Send your teams out into matches" />
+                            <Step title="Deploy" description="Send your teams out into battle" />
                         </Step.Group>
                     </Grid.Column>
                 </Grid.Row>
@@ -34,10 +35,11 @@ class Game extends Component {
                         <Roster />
                     </Grid.Column>
                     <Grid.Column>
-                        <Teams />
+                        {this.props.recruited && <Teams />}
                     </Grid.Column>
                     <Grid.Column>
-                        <Map />
+                        {this.props.teamed && <Deploy />}
+                        {this.props.teamed && <Map />}
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

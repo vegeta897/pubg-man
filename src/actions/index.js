@@ -12,4 +12,4 @@ export const tick = () => ({ type: Actions.TICK });
 export const stopTick = () => ({ type: Actions.STOP_TICK });
 export const createPlayer = count => ({ type: Actions.CREATE_PLAYER, count });
 export const addToRoster = username => ({ type: Actions.RECRUIT_PLAYER, username });
-export const createTeam = usernames => ({ type: Actions.CREATE_TEAM, usernames });
+export const createTeam = (usernames, teamName) => ({ type: Actions.CREATE_TEAM, usernames, teamName });

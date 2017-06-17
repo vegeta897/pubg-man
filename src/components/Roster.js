@@ -4,8 +4,9 @@ import { Card, List, Label } from 'semantic-ui-react';
 
 class Roster extends Component {
     render() {
-        let rosterList = this.props.players.toJS().map((player, idx) => {
-            return <List.Item icon="user" content={player.username} key={idx} />;
+        let key = 0;
+        let rosterList = this.props.players.map(player => {
+            return <List.Item icon="user" content={player.username} key={key++} />;
         });
         return (
             <Card fluid className='Roster'>
