@@ -17,6 +17,10 @@
 }
 
 .ui .Game > .menu > .item > .label {
+  border-radius: 0;
+}
+
+.ui .Game > .menu > .item > .label {
   margin-left: 0;
 }
 

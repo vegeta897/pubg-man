@@ -23,10 +23,13 @@ class CreateTeam extends PureComponent {
         let rosterDetail = this.props.roster.map(({ username }) => {
             return <Table.Row className="clickable" key={key++} positive={selectedPlayers.has(username)} disabled={selectedPlayers.size === 4
             && !selectedPlayers.has(username)} onClick={this.selectPlayer(username)}>
-                <Table.Cell>{username}</Table.Cell> <Table.Cell>Just a player</Table.Cell>
+                <Table.Cell>{username}</Table.Cell>
+                <Table.Cell>Just a player</Table.Cell>
                 <Table.Cell textAlign="center"><a>
                     <Checkbox fitted onChange={this.selectPlayer(username)} checked={selectedPlayers.has(username)} readOnly={selectedPlayers.size === 4
-                    && !selectedPlayers.has(username)}/> </a></Table.Cell> </Table.Row>
+                    && !selectedPlayers.has(username)}/>
+                </a></Table.Cell>
+            </Table.Row>
         });
         return (
             <Container className='Teams'> <Input type='text' placeholder={this.state.teamName} label={{
