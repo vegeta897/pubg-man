@@ -18,7 +18,7 @@ class Matches extends PureComponent {
         if(!this.props.display) return null;
         const { activeTab } = this.state;
         return (
-            <div className="Players">
+            <div className="Matches">
                 <Menu size="huge" pointing secondary>
                     <Menu.Item name="deploy" active={activeTab === 'deploy'} onClick={this.changeTab}>
                         Deploy

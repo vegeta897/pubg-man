@@ -32,19 +32,21 @@ class CreateTeam extends PureComponent {
             </Table.Row>
         });
         return (
-            <Container className='Teams'> <Input type='text' placeholder={this.state.teamName} label={{
-                basic: true,
-                content: 'Team'
-            }} action={{ icon: 'random', onClick: this.generateTeamName }}/> <Table sortable celled selectable padded>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell width={3} content="Name"/>
-                        <Table.HeaderCell content="Description"/>
-                        <Table.HeaderCell collapsing textAlign="center" content="Select"/>
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body children={rosterDetail}/> </Table>
-                <Button positive icon="users" labelPosition='right' content="Create Team" disabled={selectedPlayers.isEmpty()} onClick={this.createTeam}/>
+            <Container className='CreateTeam'>
+                <Input type='text' placeholder={this.state.teamName} label={{ basic: true, content: 'Team' }}
+                       action={{ icon: 'random', onClick: this.generateTeamName }}/>
+                <Table sortable celled selectable padded>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell width={3} content="Name"/>
+                            <Table.HeaderCell content="Description"/>
+                            <Table.HeaderCell collapsing textAlign="center" content="Select"/>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body children={rosterDetail}/>
+                </Table>
+                <Button positive icon="users" labelPosition='right' content="Create Team" 
+                        disabled={selectedPlayers.isEmpty()} onClick={this.createTeam}/>
             </Container>
         );
     }

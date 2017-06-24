@@ -17,7 +17,7 @@ class EditTeam extends PureComponent {
             );
         });
         return (
-            <Container className='Teams'>
+            <Container className='EditTeam'>
                 {
                     this.props.noTeams ? 'You have no teams' :
                         <List size="huge" divided selection children={teamList} />
