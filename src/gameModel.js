@@ -9,6 +9,8 @@ export const InitialState = immutable.fromJS({
     lfg: immutable.Set(),
     roster: immutable.Set(),
     teams: immutable.Map(),
+    waiting: immutable.Set(),
+    deployed: immutable.Map(),
     players: {
         byId: {},
         allIds: immutable.Set()

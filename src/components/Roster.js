@@ -1,23 +1,20 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { Card, List, Label } from 'semantic-ui-react';
+import { List, Container } from 'semantic-ui-react';
 
-class Roster extends Component {
+class Roster extends PureComponent {
     render() {
         let key = 0;
         let rosterList = this.props.players.map(player => {
             return <List.Item icon="user" content={player.username} key={key++} />;
         });
         return (
-            <Card fluid className='Roster'>
-                <Card.Content>
-                    {this.props.players.size > 0 &&
-                    <Label circular floating size="large" content={this.props.players.size} />}
-                    <Card.Header content="Roster" />
-                    <Card.Meta content="Your players" />
-                    <Card.Description content={this.props.noPlayers ? 'None' : <List children={rosterList} />} />
-                </Card.Content>
-            </Card>
+            <Container>
+                {
+                    this.props.noPlayers ? 'There are no players in your roster' :
+                        <List size="huge" children={rosterList} />
+                }
+            </Container>
         );
     }
 }

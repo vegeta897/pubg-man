@@ -1,17 +1,31 @@
 .App.ui.container {
-  padding-top: 8px;
+  padding-top: 8px!important;
 }
 
-.ui.bright-orange.card {
-  box-shadow: 0 0 0 1px #d4d4d5, 0 2px 3px 2px rgba(242, 113, 28, 0.71), 0 1px 3px 0 #d4d4d5;
+.App > .sidebar > .container {
+  max-width: 500px!important;
 }
 
-.ui.bright-orange.card:hover {
-  box-shadow: 0 0 0 1px #d4d4d5, 0 2px 2px 2px #f26202, 0 1px 3px 0 #bcbdbd;
+.ui .Game > .menu {
+  margin-bottom: 0;
+  position: relative;
+  left: -1px;
 }
 
-.ui .LFG .circular.icon {
-  margin: 0 .25rem .2rem 0;
+.ui .Game > .menu > .item {
+  height: 80px;
+}
+
+.ui .Game > .menu > .item > .label {
+  margin-left: 0;
+}
+
+.ui .Game > div > .menu.secondary > .item {
+  height: 50px;
+}
+
+.ui .LFG table .circular.icon {
+  margin: 0 .7rem .2rem 0;
 }
 
 .ui.modals.dimmer.inverted>.modal>.close.icon {
@@ -20,10 +34,6 @@
 
 .ui.padded.table td {
   padding: 0.8em 1em;
-}
-
-.ui.card.Roster {
-  margin-top: 1.8em;
 }
 
 .ui.table.selectable tr.clickable {

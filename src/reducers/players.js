@@ -29,7 +29,14 @@ export default (state, action) => {
                 .update('roster', roster => roster.add(action.username));
         case Actions.CREATE_TEAM:
             return state.setIn(['teams', action.teamName], action.usernames)
-                .update('roster', roster => roster.subtract(action.usernames));
+                .update('roster', roster => roster.subtract(action.usernames))
+                .update('waiting', deployed => deployed.add(action.teamName));
+        case Actions.DEPLOY_TEAM:
+            let deploy = {
+                startTick: state.getIn(['global','tick'])
+            };
+            return state.update('waiting', deployed => deployed.remove(action.teamName))
+                .update('deployed', deployed => deployed.set(action.teamName, deploy));
         default:
             return state;
     }
