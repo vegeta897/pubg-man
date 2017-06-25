@@ -22,7 +22,7 @@ class LFG extends PureComponent {
             return <Table.Row key={key++}>
                 <Table.Cell singleLine>
                     <Button color="orange" circular icon="plus" onClick={this.recruitPlayer(username)} /> {username}
-                    </Table.Cell>
+                </Table.Cell>
                 <Table.Cell>Just a player</Table.Cell>
             </Table.Row>
         });

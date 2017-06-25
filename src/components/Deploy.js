@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
-import { Container, Dropdown, List, Button, Progress } from 'semantic-ui-react';
+import { Container, Table, List, Button, Progress, Header } from 'semantic-ui-react';
 
 class Deploy extends PureComponent {
     deployTeam = (teamName) => (() => {
@@ -9,9 +9,17 @@ class Deploy extends PureComponent {
     });
     render() {
         let key = 0;
-        let teamList = this.props.teams.map(teamName => {
+        let teamList = this.props.teams.map(({teamName, members }) => {
             return (
-                <Dropdown.Item key={key++} text={teamName} onClick={this.deployTeam(teamName)} />
+                <Table.Row key={key++}>
+                    <Table.Cell>
+                        <Button size="large" color="red" circular icon="share" onClick={this.deployTeam(teamName)} />
+                    </Table.Cell>
+                    <Table.Cell>
+                        <Header as="h3" content={teamName} />
+                        {members.toJS().join(' · ')}
+                        </Table.Cell>
+                </Table.Row>
             );
         });
         key = 0;
@@ -28,11 +36,15 @@ class Deploy extends PureComponent {
         // TODO: Fix dropdown cutting off at bottom of container
         return (
             <Container className="deploy">
-                <Button.Group color={this.props.noTeams ? null : 'teal'}>
-                    <Dropdown button floating text="Choose Team" disabled={this.props.noTeams}>
-                        <Dropdown.Menu children={teamList} />
-                    </Dropdown>
-                </Button.Group>
+                <Table sortable celled selectable padded>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell collapsing textAlign="center" content="Deploy" />
+                            <Table.HeaderCell content="Team" />
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body children={teamList}/>
+                </Table>
                 <List children={deployList} />
             </Container>
         );
@@ -40,7 +52,9 @@ class Deploy extends PureComponent {
 }
 function mapStateToProps(state, props) { // 'props' is passed in by parent component
     return {
-        teams: state.get('waiting'),
+        teams: state.get('waiting').map(teamName => {
+            return { teamName, members: state.getIn(['teams',teamName]) }
+        }),
         deployed: state.get('deployed'),
         tick: state.getIn(['global','tick']),
         noTeams: state.get('waiting').isEmpty()

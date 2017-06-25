@@ -24,7 +24,7 @@
   margin-left: 0;
 }
 
-.ui .Game > div > .menu.secondary > .item {
+.ui .Game > .GameContent > div > .menu.secondary > .item {
   height: 50px;
 }
 
