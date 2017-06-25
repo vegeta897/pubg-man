@@ -6,6 +6,8 @@ import Teams from './Teams';
 import Matches from './Matches';
 import { Menu, Label } from 'semantic-ui-react';
 import { capitalize } from './../util';
+import { getWidth } from 'viewport-size';
+import scrollToElement from 'scroll-to-element';
 
 class Game extends PureComponent {
     componentDidMount() { // https://stackoverflow.com/a/36299242/2612679
@@ -30,9 +32,11 @@ class Game extends PureComponent {
             </Menu.Item>
     };
     hoverTab = tab => () => this.setState({ hoverTab: tab });
-    changeTab = (e, { name }) => this.setState({ activeTab: name });
+    changeTab = (e, { name }) => {
+        this.setState({ activeTab: name });
+        if(getWidth() < 768) setTimeout(() => scrollToElement('.GameContent', { duration: 500 }),1);
+    };
     // TODO: Implement "display" prop on all views for persistent state when switching sub-tabs
-    // Alternatively, keep current tab & sub-tabs in store
     render() {
         const { activeTab } = this.state;
         return (
@@ -47,9 +51,11 @@ class Game extends PureComponent {
                     {this.createTab(
                         'stats', 'grey', this.props.newAchievements, 'achievement', 'Progress & Achievements')}
                 </Menu>
-                <Players display={activeTab === 'players'} />
-                <Teams display={activeTab === 'teams'} />
-                <Matches display={activeTab === 'matches'} />
+                <div className="GameContent">
+                    <Players display={activeTab === 'players'} />
+                    <Teams display={activeTab === 'teams'} />
+                    <Matches display={activeTab === 'matches'} />
+                </div>
             </div>
         );
     }

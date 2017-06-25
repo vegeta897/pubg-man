@@ -25,6 +25,7 @@ class Deploy extends PureComponent {
                 </List.Item>
             );
         });
+        // TODO: Fix dropdown cutting off at bottom of container
         return (
             <Container className="deploy">
                 <Button.Group color={this.props.noTeams ? null : 'teal'}>

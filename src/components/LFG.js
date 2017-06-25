@@ -4,8 +4,6 @@ import * as Actions from '../actions';
 import { Table, Button, Header } from 'semantic-ui-react';
 
 class LFG extends PureComponent {
-    showDetail = () => !this.props.noPlayers && this.setState({ open: true });
-    closeDetail = () => this.setState({ open: false });
     recruitPlayer = username => (() => {
         this.props.dispatch(Actions.addToRoster(username))
     });

@@ -2,11 +2,13 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Segment, Header, Container, Message, Sidebar, Icon } from 'semantic-ui-react';
 import Game from './Game'
+import { getWidth } from 'viewport-size';
 
 class App extends PureComponent {
     constructor(props) {
         super(props);
-        this.state = { tooSmall: window.innerWidth < 1200, smallOkay: false };
+        let browserWidth = getWidth();
+        this.state = { tooSmall: browserWidth < 1200 && browserWidth >= 768, smallOkay: false };
     }
     componentDidMount() {
         this.updateWindowDimensions();
@@ -16,8 +18,9 @@ class App extends PureComponent {
         window.removeEventListener('resize', this.updateWindowDimensions);
     }
     updateWindowDimensions = () => { // https://stackoverflow.com/a/42141641/2612679
+        let browserWidth = getWidth();
         this.setState({
-            tooSmall: !this.state.smallOkay && window.innerWidth < 1200 && window.innerWidth >= 768
+            tooSmall: !this.state.smallOkay && browserWidth < 1200 && browserWidth >= 768
         });
     };
     acceptSmallness = () => {
